@@ -389,7 +389,7 @@ function StreakDisplay({ streak, showBonus }: { streak: number; showBonus: boole
 }
 
 export default function MathQuiz() {
-  const EXERCISE_COUNT = 5;
+  const EXERCISE_COUNT = 10;
   const [quizKey, setQuizKey] = useState(() => `${Date.now()}-${Math.random()}`);
   const [exercises, setExercises] = useState<Exercise[]>(() => generateExercises(EXERCISE_COUNT));
   const [inputs, setInputs] = useState<string[]>(Array(EXERCISE_COUNT).fill(""));
