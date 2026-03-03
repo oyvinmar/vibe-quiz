@@ -399,13 +399,24 @@ export default function MathQuiz() {
   const [streak, setStreak] = useState(0);
   const [showStreakBonus, setShowStreakBonus] = useState(false);
   const [score, setScore] = useState(0);
-  const [totalScore, setTotalScore] = useState(0);
+  const [totalScore, setTotalScore] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("totalScore");
+      return saved ? parseInt(saved, 10) : 0;
+    }
+    return 0;
+  });
   const [quizComplete, setQuizComplete] = useState(false);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [width, height] = useWindowSize();
   const [playCelebration] = useSound("/celebration.wav", { volume: 0.5 });
 
   const allCorrect = correct.every(c => c) && quizComplete;
+
+  // Persist totalScore to localStorage
+  useEffect(() => {
+    localStorage.setItem("totalScore", totalScore.toString());
+  }, [totalScore]);
 
   // Play sound when all correct
   useEffect(() => {
